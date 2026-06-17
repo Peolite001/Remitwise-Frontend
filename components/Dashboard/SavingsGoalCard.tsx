@@ -143,9 +143,9 @@ export default function SavingsGoalCard({
                     </div>
                 </div>
 
-                <div className="space-y-1">
-                    <h3 className="text-lg font-bold text-white tracking-tight">{title}</h3>
-                    <p className="text-sm tracking-tight text-white/60">{description}</p>
+                <div className="space-y-1 w-full overflow-hidden">
+                    <h3 className="text-lg font-bold text-white tracking-tight truncate w-full">{title}</h3>
+                    <p className="text-sm tracking-tight text-white/60 truncate w-full">{description}</p>
                 </div>
 
                 <div className="grid gap-4 sm:grid-cols-[1.3fr_0.9fr]">
