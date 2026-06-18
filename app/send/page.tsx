@@ -8,6 +8,8 @@ import RecipientAddressInput from "./components/RecipientAddressInput";
 import AmountCurrencySection from "./components/AmountCurrencySection";
 import ReviewStep from "./components/ReviewStep";
 import TransactionSuccessReceipt from "@/components/TransactionSuccessReceipt";
+import { useClientLocale } from "@/lib/i18n/client";
+import { formatCurrency } from "@/lib/utils/format-currency";
 
 type Step = "recipient" | "amount" | "review";
 
@@ -34,6 +36,8 @@ export default function SendMoney() {
     setStep("review");
   };
 
+  const locale = useClientLocale();
+
   const handleConfirm = () => {
     // Simulate transaction processing
     const mockData = {
@@ -54,12 +58,13 @@ export default function SendMoney() {
     
     setTransactionData(mockData);
     setIsSubmitted(true);
+    const formattedAmount = formatCurrency(amount, currency, locale);
     toast({
       variant: "success",
       title: "Transfer submitted",
-      description: `Successfully sent ${amount} ${currency} to ${mockData.recipientAddress}.`,
+      description: `Successfully sent ${formattedAmount} to ${mockData.recipientAddress}.`,
     });
-    console.log(`Send ${amount} ${currency} to ${recipient}`);
+    console.log(`Send ${formattedAmount} to ${recipient}`);
   };
 
   return (
