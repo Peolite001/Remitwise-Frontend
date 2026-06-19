@@ -7,7 +7,17 @@ import { ToastProvider } from "@/lib/context/ToastContext";
 import { AsyncOperationsProvider } from "@/lib/context/AsyncOperationsContext";
 import ToastRegion from "@/components/ToastRegion";
 import SessionExpiryProvider from "@/components/SessionExpiryProvider";
+import CommandPalette from "@/components/CommandPalette";
 import { WalletProvider } from "stellar-wallet-kit";
+
+export default function App() {
+  return (
+    <WalletProvider>
+      <CommandPalette />
+      {/* rest of your app */}
+    </WalletProvider>
+  );
+}
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -25,20 +35,25 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${inter.className} starry-bg min-h-screen`}>
-        <WalletProvider>
-          <ToastProvider>
-            <DensityProvider>
-              <AsyncOperationsProvider>
-                <SessionExpiryProvider>
-                  <LayoutWrapper>
-                    {children}
-                  </LayoutWrapper>
-                  <ToastRegion />
-                </SessionExpiryProvider>
-              </AsyncOperationsProvider>
-            </DensityProvider>
-          </ToastProvider>
-        </WalletProvider>
+<WalletProvider>
+  <ToastProvider>
+    <DensityProvider>
+      {/* Keep AsyncOperationsProvider from main, but also preserve ContractOperationsProvider if still needed */}
+      <AsyncOperationsProvider>
+        <ContractOperationsProvider>
+          <SessionExpiryProvider>
+            <LayoutWrapper>
+              {children}
+            </LayoutWrapper>
+            <ToastRegion />
+            <CommandPalette />
+          </SessionExpiryProvider>
+        </ContractOperationsProvider>
+      </AsyncOperationsProvider>
+    </DensityProvider>
+  </ToastProvider>
+</WalletProvider>
+
       </body>
     </html>
   );
