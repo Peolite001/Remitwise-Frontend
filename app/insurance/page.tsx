@@ -258,7 +258,7 @@ export default function InsurancePage() {
 
 // ─── PolicyCard ───────────────────────────────────────────────────────────────
 
-function PolicyCard({
+function PolicyCardRefactored({
   policy,
   t,
   onViewDetail,
