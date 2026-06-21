@@ -1,6 +1,6 @@
 import { describe, it, expect, vi, beforeEach, type Mock } from "vitest";
 import { renderHook, act, waitFor } from "@testing-library/react";
-import { usePolicyActions, type PolicyActionState } from "@/hooks/usePolicyActions";
+import { usePolicyActions, type PolicyActionState } from "@/lib/hooks/usePolicyActions";
 import { apiClient } from "@/lib/client/apiClient";
 import { AsyncOperationsProvider } from "@/lib/context/AsyncOperationsContext";
 

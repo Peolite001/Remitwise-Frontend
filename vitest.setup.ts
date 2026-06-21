@@ -1,2 +1,4 @@
-// Vitest setup - jest-dom matchers are extended via @testing-library/jest-dom/vitest
-// This file intentionally kept minimal to avoid CJS/ESM conflicts in vitest 4.x
+// Vitest setup - extend expect() with jest-dom matchers (toBeInTheDocument, etc.)
+// The /vitest entry registers the matchers against Vitest's expect and augments
+// its Assertion types, which is the correct integration path for Vitest 4.x.
+import '@testing-library/jest-dom/vitest';

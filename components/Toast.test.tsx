@@ -20,6 +20,9 @@ describe('Toast', () => {
   });
 
   afterEach(() => {
+    // Restore real timers so the fake timers installed above don't leak into
+    // other test files sharing this worker (which would hang their teardown).
+    vi.useRealTimers();
     vi.restoreAllMocks();
   });
 
@@ -105,6 +108,9 @@ describe('Toast', () => {
 
   describe('Accessibility', () => {
     it('should have no accessibility violations', async () => {
+      // axe-core schedules work on real timers; the fake timers installed in
+      // beforeEach would otherwise stall `await axe(...)` until the test times out.
+      vi.useRealTimers();
       const { container } = render(<Toast toast={mockToast} onDismiss={mockOnDismiss} />);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
